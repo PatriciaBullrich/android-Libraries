@@ -2,6 +2,8 @@ package com.example.tpombd.utiles;
 
 import android.widget.EditText;
 
+import java.util.Random;
+
 public class ValidacionesHelpers {
 
     public  static final int maxCaracteres = 20000000;
@@ -24,6 +26,16 @@ public class ValidacionesHelpers {
         String aux = edt_txt.getText().toString().trim();
         return esStringValido(aux);
     }
+    
+        public static int generarRandom(int min, int max){
+        Random r = new Random();
+        return r.nextInt(max-min) + min;
+    }
+
+    public static String filtrarAminus(EditText e){
+        return e.getText().toString().trim().toLowerCase();
+    }
+
 
 
 }
