@@ -1,10 +1,17 @@
 
 
 import android.widget.EditText;
-
+import android.widget.RadioGroup;
 import java.util.Random;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+    
 public class ValidacionesHelpers {
+    
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     public  static final int maxCaracteres = 20000000;
     public static boolean esStringValido(String texto, int min, int max){
@@ -34,6 +41,16 @@ public class ValidacionesHelpers {
 
     public static String filtrarAminus(EditText e){
         return e.getText().toString().trim().toLowerCase();
+    }
+    
+       public static boolean validarMail(EditText mail) {
+        String emailStr = mail.getText().toString().trim();
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+        return matcher.find();
+    }
+
+    public static boolean RG_check(RadioGroup rg){
+        return rg.getCheckedRadioButtonId() != -1;
     }
 
 
