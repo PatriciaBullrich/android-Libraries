@@ -39,10 +39,13 @@ public class ValidacionesHelpers {
         return r.nextInt(max-min) + min;
     }
 
-    public static String filtrarAminus(EditText e){
-        return e.getText().toString().trim().toLowerCase();
+     public static String convertMayus(EditText edt_txt){
+        return edt_txt.getText().toString().trim().toUpperCase();
     }
-    
+
+    public static String convertMinus(EditText edt_txt){
+        return edt_txt.getText().toString().trim().toLowerCase();
+    }
        public static boolean validarMail(EditText mail) {
         String emailStr = mail.getText().toString().trim();
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
