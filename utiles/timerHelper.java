@@ -9,9 +9,9 @@ public class timerHelper {
     private  static double time;
     private  static TimerTask task;
 
-    public static void starStop(){
+ public static void starStop(boolean reset){
         if(!estaCorriendo) {
-            reset();
+            if(reset) reset();
             estaCorriendo = true;
             startTimer();
             CustomLog.log("Empezo a contar");
@@ -22,6 +22,9 @@ public class timerHelper {
             CustomLog.log("Me frene");
         }
 
+    }
+    public static void starStop(){
+        starStop(false);
     }
 
     public static void reset(){
