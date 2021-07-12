@@ -1,4 +1,4 @@
-package com.example.myapplication;
+
 
 import android.os.AsyncTask;
 
@@ -10,9 +10,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
+//THIS CLASS IS INTENDED TO BE INHERITED
 public class AsyncPostBase extends AsyncTask<String,Void,String> {
-   protected JSONObject jsonParam = new JSONObject();
+   protected JSONObject jsonParam = new JSONObject(); //in the child class you fill this value with the body params
     @Override
     protected String doInBackground(String... params) {
         String response ="";
@@ -23,7 +23,7 @@ public class AsyncPostBase extends AsyncTask<String,Void,String> {
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
-             if(EsApiKeyValida(Session.currentUser.ApiKey)) connection.setRequestProperty("ApiKey",Session.currentUser.ApiKey);
+             if(EsApiKeyValida(Session.currentUser.ApiKey)) connection.setRequestProperty("ApiKey",Session.currentUser.ApiKey); // optional api key
             OutputStreamWriter outputStream = new OutputStreamWriter(connection.getOutputStream());
             outputStream.write(jsonParam.toString());
             outputStream.flush();
@@ -37,7 +37,6 @@ public class AsyncPostBase extends AsyncTask<String,Void,String> {
                 total.append(line);
             }
             response = total.toString();
-            // Response: 400
             CustomLog.log(connection.getResponseMessage());
         }
         catch (Exception ex){
