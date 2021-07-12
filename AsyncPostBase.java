@@ -23,7 +23,7 @@ public class AsyncPostBase extends AsyncTask<String,Void,String> {
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
-             if(EsApiKeyValida(Session.currentUser.ApiKey)) connection.setRequestProperty("ApiKey",Session.currentUser.ApiKey); // optional api key
+             if(!Session.currentUser.ApiKey.equals("")) connection.setRequestProperty("ApiKey",Session.currentUser.ApiKey); // optional api key
             OutputStreamWriter outputStream = new OutputStreamWriter(connection.getOutputStream());
             outputStream.write(jsonParam.toString());
             outputStream.flush();
