@@ -13,9 +13,9 @@ import java.net.URL;
 //THIS CLASS IS INTENDED TO BE INHERITED
     public class AsyncPostBase extends AsyncTask<Void,Void,String> {
         protected JSONObject jsonParam = new JSONObject(); //in the child class you fill this value with the body params
-        protected String url;
+        protected String URL;
         public AsyncPostBase(String url){
-            this.url= url;
+            this.URL= url;
         }
 
         public void setParams(String key,String value) {
@@ -69,7 +69,7 @@ import java.net.URL;
         protected String doInBackground(Void... params) {
             String response ="";
             try{
-                URL url = new URL(url);
+                URL url = new URL(URL);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setDoOutput(true);
                 connection.setRequestMethod("POST");
