@@ -87,14 +87,20 @@ public class AsyncPostBase extends AsyncTask<Void,Void,String> {
             outputStream.flush();
             outputStream.close();*/
 
-            InputStream cuerpoRespuesta = connection.getInputStream();
-            InputStreamReader lector = new InputStreamReader(cuerpoRespuesta,"UTF-8");
-            BufferedReader r = new BufferedReader(lector);
-            StringBuilder total = new StringBuilder();
-            for (String line; (line = r.readLine()) != null; ) {
-                total.append(line);
+             if (connection.getResponseCode() == 200) {
+                response = StreamHelper.returnJsonAsString(connection.getInputStream());
+                /*InputStream cuerpoRespuesta = connection.getInputStream();
+                InputStreamReader lector = new InputStreamReader(cuerpoRespuesta,"UTF-8");
+                BufferedReader r = new BufferedReader(lector);
+                StringBuilder total = new StringBuilder();
+                for (String line; (line = r.readLine()) != null; ) {
+                    total.append(line);
+                }
+                response = total.toString();
+                CustomLog.log(connection.getResponseMessage());
+            }*/
             }
-            response = total.toString();
+            else CustomLog.log("error when connecting to the api");
             CustomLog.log(connection.getResponseMessage());
         }
         catch (Exception ex){
