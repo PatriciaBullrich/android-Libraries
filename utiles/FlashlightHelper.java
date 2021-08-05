@@ -1,4 +1,4 @@
-package com.example.tp7_polshu;
+
 
 import android.content.Context;
 import android.content.pm.PackageManager;
