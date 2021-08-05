@@ -33,7 +33,9 @@ public class ValidacionesHelpers {
         String aux = edt_txt.getText().toString().trim();
         return esStringValido(aux);
     }
-    
+    public static boolean esSoloNumeros(String s){
+        return !s.equals("") && s.matches("[0-9]+");
+    }
         public static int generarRandom(int min, int max){
         Random r = new Random();
         return r.nextInt(max-min) + min;
