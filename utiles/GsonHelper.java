@@ -14,6 +14,8 @@ public class GsonHelper<T>{
                         .create();
     //you can choose any date format that you want
 
+    
+    //ALL OF THE CODE BELOW DOES NOT WORK PLEASE DO NOT USE IT
 
     public T fromJson(String json){
         Type typeOfT = new TypeToken<T>(){}.getType();
