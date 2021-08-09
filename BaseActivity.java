@@ -19,7 +19,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tp7_polshu.utiles.AlertHelper;
-import com.example.tp7_polshu.utiles.Defaults;
 import com.example.tp7_polshu.utiles.CustomLog;
 
 import java.util.Locale;
@@ -135,22 +134,22 @@ import androidx.appcompat.app.AppCompatActivity;
         Object result = null;
         switch (type.toLowerCase(Locale.ROOT)){
             case "int":
-                result =  (int) sharedPref.getInt(key,Defaults.NUMBER);// can replace default with whatever you want
+                result =  (int) sharedPref.getInt(key,-1);// can replace default with whatever you want
                 break;
             case "float":
-                result =  (float) sharedPref.getFloat(key,Defaults.NUMBER);
+                result =  (float) sharedPref.getFloat(key,-1);
                 break;
             case "long":
-                result =  (long) sharedPref.getLong(key,Defaults.NUMBER);
+                result =  (long) sharedPref.getLong(key,-1);
                 break;
             case "string":
-                result =  (String) sharedPref.getString(key,Defaults.STRING);
+                result =  (String) sharedPref.getString(key,null);
                 break;
             case "boolean":
-                result =  (boolean) sharedPref.getBoolean(key,Defaults.BOOLEAN);
+                result =  (boolean) sharedPref.getBoolean(key,Defaults.false);
                 break;
             case "set":
-                result =  (Set<String>) sharedPref.getStringSet(key,Defaults.STRING_SET);
+                result =  (Set<String>) sharedPref.getStringSet(key,Defaults.null);
                 break;
             default:
                 CustomLog.log("no encontre el tipo de dato especificado");
