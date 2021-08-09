@@ -17,7 +17,6 @@ public class FlashlightHelper {
     <uses-permission android:name="android.permission.FLASHLIGHT"/>
     Add in manifest
      */
-    private final BaseActivity base = new BaseActivity();
     private static  CameraManager manager;
     private static String cameraId;
     public static boolean estaEncendida = false;
