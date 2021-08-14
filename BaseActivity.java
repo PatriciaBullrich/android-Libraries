@@ -1,5 +1,3 @@
-
-
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,21 +17,24 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tp7_polshu.utiles.AlertHelper;
+import com.example.tp7_polshu.utiles.Defaults;
 import com.example.tp7_polshu.utiles.CustomLog;
 
 import java.util.Locale;
 import java.util.Set;
 
+public class BaseActivity extends AppCompatActivity {
 
-import androidx.appcompat.app.AppCompatActivity;
-
-
-    private static final int REQUEST_PHONE_CALL = 1;
-
+    
+    // makes a simple toast, you can modify the length or the gravity if you like
     public void tostada(String msj){
         Toast.makeText(this, msj, Toast.LENGTH_LONG).show();
     }
 
+    //region Replace fragment
+    // this functions use a predefined framelayout as the container where all the fragments are replaced
+    // you can change the frame layout to the one that you use or pass it in params
+    // addBackToStack false, the app will not remember the fragment if you go back or delete it
     public void reemplazarFragment(Fragment frag, boolean addBackToStack){
         FragmentManager manager;
         FragmentTransaction transaction;
@@ -50,13 +51,19 @@ import androidx.appcompat.app.AppCompatActivity;
     public void reemplazarFragment(Fragment frag){
         reemplazarFragment(frag,true);
     }
+    //endregion
+    
+    
 
-    //guardar en las preferencias
-
+    // region Preferences functions
+    // to save preferences call this.SavePreferences(key, value).
+    // to read preferences call this.ReadPreferences(value, datatype as a string) EG: ReadPreferences("userCount", "int").
+    // To clear the xml prefs file call this.clearPreferences()
+    // this methods implement the shared prefs object 
     protected void SavePreferences(String key, int value){
         if(key == null){
-        CustomLog.log("error. la llave no puede ser nula");
-        return;
+            CustomLog.log("error. la llave no puede ser nula");
+            return;
         }
 
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
@@ -134,22 +141,22 @@ import androidx.appcompat.app.AppCompatActivity;
         Object result = null;
         switch (type.toLowerCase(Locale.ROOT)){
             case "int":
-                result =  (int) sharedPref.getInt(key,-1);// can replace default with whatever you want
+                result =  (int) sharedPref.getInt(key,Defaults.NUMBER);// can replace default with whatever you want
                 break;
             case "float":
-                result =  (float) sharedPref.getFloat(key,-1);
+                result =  (float) sharedPref.getFloat(key,Defaults.NUMBER);
                 break;
             case "long":
-                result =  (long) sharedPref.getLong(key,-1);
+                result =  (long) sharedPref.getLong(key,Defaults.NUMBER);
                 break;
             case "string":
-                result =  (String) sharedPref.getString(key,null);
+                result =  (String) sharedPref.getString(key,Defaults.STRING);
                 break;
             case "boolean":
-                result =  (boolean) sharedPref.getBoolean(key,Defaults.false);
+                result =  (boolean) sharedPref.getBoolean(key,Defaults.BOOLEAN);
                 break;
             case "set":
-                result =  (Set<String>) sharedPref.getStringSet(key,Defaults.null);
+                result =  (Set<String>) sharedPref.getStringSet(key,Defaults.STRING_SET);
                 break;
             default:
                 CustomLog.log("no encontre el tipo de dato especificado");
@@ -158,7 +165,24 @@ import androidx.appcompat.app.AppCompatActivity;
         return result;
     }
 
+    public void clearPreferences(){
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.clear();
+        editor.apply();
+    }
+    //endregion
 
+
+
+    //region Make a phone call
+    /* this functions will try to make a phone call by using the intent ACTION_CALL
+    * Notice that if you do not let the app make calls, this will ask for permission. 
+    * You can override the request permissions switch block to get the permissions for anything you want
+    * This will work just for calling though*/
+
+    private static final int REQUEST_PHONE_CALL = 1;
+    
     public void makeCall(String tel){
         if(checkPermission(Manifest.permission.CALL_PHONE)) {
             Intent callIntent = new Intent(Intent.ACTION_CALL);
@@ -209,8 +233,6 @@ import androidx.appcompat.app.AppCompatActivity;
                 new String[]{permission},
                 code);
     }
-
-
-
+    //endregion
 
 }
