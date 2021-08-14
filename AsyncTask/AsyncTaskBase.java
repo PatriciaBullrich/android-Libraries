@@ -78,7 +78,7 @@ public class AsyncTaskBase extends AsyncTask<Void, Void ,String> {
             URL request = new URL(url);
             CustomLog.logObject(request);
             HttpURLConnection con = (HttpURLConnection) request.openConnection();
-            con.setRequestProperty("ApiKey", "jorge"/*Session.currentUser.getApiKey()*/);
+           // you can add headers with  con.setRequestProperty("authorization", "123");
             CustomLog.log("connecting");
             if (con.getResponseCode() == 200) {
                 CustomLog.log("Connection OK");
