@@ -79,26 +79,12 @@ public class AsyncPostBase extends AsyncTask<Void,Void,String> {
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
-             //if(Session.currentUser != null) connection.setRequestProperty("ApiKey",Session.currentUser.getApiKey()); // optional api key
+            // you can add headers with  con.setRequestProperty("authorization", "123");
+            
             if (jsonParam.length() > 0) OutputStreamHelper.writeOutPut(connection.getOutputStream(),jsonParam);
-
-            /*OutputStreamWriter outputStream = new OutputStreamWriter(connection.getOutputStream());
-            outputStream.write(jsonParam.toString());
-            outputStream.flush();
-            outputStream.close();*/
-
+            
              if (connection.getResponseCode() == 200) {
                 response = StreamHelper.returnJsonAsString(connection.getInputStream());
-                /*InputStream cuerpoRespuesta = connection.getInputStream();
-                InputStreamReader lector = new InputStreamReader(cuerpoRespuesta,"UTF-8");
-                BufferedReader r = new BufferedReader(lector);
-                StringBuilder total = new StringBuilder();
-                for (String line; (line = r.readLine()) != null; ) {
-                    total.append(line);
-                }
-                response = total.toString();
-                CustomLog.log(connection.getResponseMessage());
-            }*/
             }
             else CustomLog.log("error when connecting to the api");
             CustomLog.log(connection.getResponseMessage());
