@@ -141,22 +141,22 @@ public class BaseActivity extends AppCompatActivity {
         Object result = null;
         switch (type.toLowerCase(Locale.ROOT)){
             case "int":
-                result =  (int) sharedPref.getInt(key,Defaults.NUMBER);// can replace default with whatever you want
+                result =  (int) sharedPref.getInt(key,0);// can replace default with whatever you want
                 break;
             case "float":
-                result =  (float) sharedPref.getFloat(key,Defaults.NUMBER);
+                result =  (float) sharedPref.getFloat(key,0);
                 break;
             case "long":
-                result =  (long) sharedPref.getLong(key,Defaults.NUMBER);
+                result =  (long) sharedPref.getLong(key,0);
                 break;
             case "string":
-                result =  (String) sharedPref.getString(key,Defaults.STRING);
+                result =  (String) sharedPref.getString(key,"");
                 break;
             case "boolean":
-                result =  (boolean) sharedPref.getBoolean(key,Defaults.BOOLEAN);
+                result =  (boolean) sharedPref.getBoolean(key,false;
                 break;
             case "set":
-                result =  (Set<String>) sharedPref.getStringSet(key,Defaults.STRING_SET);
+                result =  (Set<String>) sharedPref.getStringSet(key,null);
                 break;
             default:
                 CustomLog.log("no encontre el tipo de dato especificado");
