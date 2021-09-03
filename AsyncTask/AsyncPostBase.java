@@ -45,6 +45,14 @@ public class AsyncPostBase extends AsyncTask<Void,Void,String> {
             //CustomLog.logException(e);
         }
     }
+    
+     public void setParams(String key){
+        try {
+            jsonParam.put(key, null);
+        } catch (Exception e) {
+            //CustomLog.logException(e);
+        }
+    }
 
     public void setParams(String key, Date value) {
         try {
