@@ -29,6 +29,11 @@ public class AsyncPostBase extends AsyncTask<Void,Void,String> {
         setRequesMethod(method);
         this.URL = url;
     }
+    
+     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public void StartAsyncTaskInParallel(AsyncTask<Void, Void, String> task) {
+        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
 
     public void setParams(String key, String value) {
         try {
