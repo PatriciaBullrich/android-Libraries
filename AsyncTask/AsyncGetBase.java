@@ -29,7 +29,7 @@ public class AsyncGetBase extends AsyncTask<Void, Void ,String> {
     }
     
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
- private void StartAsyncTaskInParallel(AsyncGetBase task) {
+ private void StartAsyncTaskInParallel(AsyncTask<Void,Void,String> task) {
      if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
          task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
      else
