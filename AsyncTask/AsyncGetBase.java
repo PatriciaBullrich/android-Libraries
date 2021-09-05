@@ -14,12 +14,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
 
-public class AsyncTaskBase extends AsyncTask<Void, Void ,String> {
+public class AsyncGetBase extends AsyncTask<Void, Void ,String> {
 
     private String url;
     protected JSONObject jsonParam = new JSONObject(); //in the child class you fill this value with the body params
 
-    public AsyncTaskBase(String url) {
+    public AsyncGetBase(String url) {
         this.url = url;
     }
     
@@ -27,6 +27,16 @@ public class AsyncTaskBase extends AsyncTask<Void, Void ,String> {
     public void StartAsyncTaskInParallel(AsyncTask<Void, Void, String> task) {
         task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
+    
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+ private void StartAsyncTaskInParallel(AsyncGetBase task) {
+     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+         task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+     else
+         task.execute();
+ }
+
+}
 
 
     public void setParams(String key, String value) {
