@@ -17,7 +17,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tp7_polshu.utiles.AlertHelper;
-import com.example.tp7_polshu.utiles.Defaults;
 import com.example.tp7_polshu.utiles.CustomLog;
 
 import java.util.Locale;
