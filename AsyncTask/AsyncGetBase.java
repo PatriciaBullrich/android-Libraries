@@ -1,37 +1,52 @@
 //Generic Async task to extend for GET requests
 
-package com.example.ProyectoFinal.loangrounds.AsyncTask;
-
+mport android.annotation.TargetApi;
 import android.os.AsyncTask;
+import android.os.Build;
 
-import com.example.ProyectoFinal.loangrounds.Utilidades.CustomLog;
-import com.example.ProyectoFinal.loangrounds.Utilidades.OutputStreamHelper;
-import com.example.ProyectoFinal.loangrounds.Utilidades.StreamHelper;
 
 import org.json.JSONObject;
+
+import com.turri.tp_login_polshu.Session;
+import com.turri.tp_login_polshu.Utiles.CustomLog;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AsyncGetBase extends AsyncTask<Void, Void ,String> {
 
-    private String url;
+    private final String url;
     protected JSONObject jsonParam = new JSONObject(); //in the child class you fill this value with the body params
+    private  final HashMap<String, String> headers = new HashMap<>();
+
 
     public AsyncGetBase(String url) {
         this.url = url;
     }
-    
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
- private void StartAsyncTaskInParallel(AsyncTask<Void,Void,String> task) {
-     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-         task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-     else
-         task.execute();
- }
 
-}
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    private void StartAsyncTaskInParallel(AsyncTask<Void,Void,String> task) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        else
+            task.execute();
+    }
+
+    protected void addHeaders(String key, String value){
+        headers.put(key,value);
+    }
+
+    private void setHeaders(HttpURLConnection con){
+        if(headers.isEmpty()) return;
+        for (Map.Entry<String,String> set: headers.entrySet()) {
+            con.setRequestProperty(set.getKey(), set.getValue());
+        }
+    }
+
+
 
 
     public void setParams(String key, String value) {
@@ -49,8 +64,8 @@ public class AsyncGetBase extends AsyncTask<Void, Void ,String> {
             //CustomLog.logException(e);
         }
     }
-    
-     public void setParams(String key){
+
+    public void setParams(String key){
         try {
             jsonParam.put(key, null);
         } catch (Exception e) {
@@ -97,7 +112,10 @@ public class AsyncGetBase extends AsyncTask<Void, Void ,String> {
             URL request = new URL(url);
             CustomLog.logObject(request);
             HttpURLConnection con = (HttpURLConnection) request.openConnection();
-           // you can add headers with  con.setRequestProperty("authorization", "123");
+            con.setRequestProperty("Content-Type", "application/json");
+            con.setRequestProperty("Accept", "application/json");
+            if(Session.getCurrentUser()!= null) addHeaders("tokenkey", Session.getCurrentUser().getTokenKey());
+            setHeaders(con); // setting the headers
             CustomLog.log("connecting");
             if (con.getResponseCode() == 200) {
                 CustomLog.log("Connection OK");
