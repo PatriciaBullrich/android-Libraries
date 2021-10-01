@@ -19,7 +19,7 @@ import java.util.Map;
 public class AsyncGetBase extends AsyncTask<Void, Void ,String> {
 
     private final String url;
-    protected JSONObject jsonParam = new JSONObject(); //in the child class you fill this value with the body params
+    private JSONObject jsonParam = new JSONObject(); //in the child class you fill this value with the body params
     private  final HashMap<String, String> headers = new HashMap<>();
 
 
