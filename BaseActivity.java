@@ -152,7 +152,7 @@ public class BaseActivity extends AppCompatActivity {
                 result =  (String) sharedPref.getString(key,"");
                 break;
             case "boolean":
-                result =  (boolean) sharedPref.getBoolean(key,false;
+                result =  (boolean) sharedPref.getBoolean(key,false);
                 break;
             case "set":
                 result =  (Set<String>) sharedPref.getStringSet(key,null);
