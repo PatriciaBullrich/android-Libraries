@@ -1,4 +1,5 @@
 
+
 import android.annotation.TargetApi;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -71,11 +72,7 @@ public class AsyncTaskBase extends AsyncTask<Void,Void,String> {
         taskListener.onTaskStarted();
     }
 
-    @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-        taskListener.onTaskFinished();
-    }
+
 
     @Override
     protected String doInBackground(Void... params) {
@@ -96,5 +93,11 @@ public class AsyncTaskBase extends AsyncTask<Void,Void,String> {
             taskListener.onError(ex);
         }
         return response;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+        taskListener.onTaskFinished(s);
     }
 }
