@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.turri.tp_login_polshu.AsyncTask.AsyncGetBase;
 import com.turri.tp_login_polshu.AsyncTask.AsyncTaskBase;
 import com.turri.tp_login_polshu.AsyncTask.TaskListener;
 import com.turri.tp_login_polshu.Model.Usuario;
@@ -35,6 +36,8 @@ public class LoginFragment extends BaseFragment{
 	View.OnClickListener btn_login_click = v ->{
 		if(esFormularioValido()) {
 			login nuevoLogin = new login(et_userName.getText().toString().trim(),et_clave.getText().toString().trim());
+			nuevoLogin.setParams("param1", 3);
+			nuevoLogin.setParams("param2", "my value");
 			nuevoLogin.execute();
 		}
 	};
@@ -71,11 +74,12 @@ public class LoginFragment extends BaseFragment{
 		inicializar();
 		setearListeners();
 		return rootLayout;
-    }	
+    }
     private final TaskListener myListener = new TaskListener() {
 		@Override
 		public void onTaskStarted() {
 			CustomLog.log("task started");
+
 		}
 
 		@Override
@@ -99,10 +103,10 @@ public class LoginFragment extends BaseFragment{
 			CustomLog.logException(ex);
 		}
 	};
-	
+
 	private class login extends AsyncTaskBase {
 		public login(String userName, String password){
-			super(RequestMethods.GET, 
+			super(RequestMethods.GET,
 					String.format("http://api.polshu.com.ar/api/v1/usuarios/login/%s/%s",userName,password),
 					myListener);
 		}
