@@ -98,6 +98,6 @@ public class AsyncTaskBase extends AsyncTask<Void,Void,String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        taskListener.onTaskFinished(s);
+        taskListener.onTaskFinished(this.getClass.getSimpleName(),s);
     }
 }
