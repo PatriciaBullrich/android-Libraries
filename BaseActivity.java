@@ -52,6 +52,20 @@ public class BaseActivity extends AppCompatActivity {
     }
     //endregion
     
+    //region comunicating between activities
+    
+    public void setCanceledResult(){
+        Intent intent = new Intent();
+        startActivityForResult(intent,RESULT_CANCELED);
+        finish();
+    }
+
+    public void switchActivity(Class a){
+        Intent intent = new Intent(this, a);
+        startActivity(intent);
+    }
+    
+     //endregion 
     
 
     // region Preferences functions
