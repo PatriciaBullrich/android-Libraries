@@ -1,0 +1,6 @@
+public interface BasicMethods {
+     void inicializar();
+     void setearListeners();
+}
+
+// I always use this methods in activities or fragments
