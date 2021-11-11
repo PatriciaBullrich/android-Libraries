@@ -19,7 +19,7 @@ public final class CustomLog {
     }
     public static void log(int[] nums){ Log.d(CUSTOM_TAG, String.valueOf(nums)); }
     public static void logException(Exception e){
-        log("errors: "+ e.getMessage());
+        e.printStackTrace();
     }
     public static void logObject(Object o){
         log("object recieved:" + o.toString());
